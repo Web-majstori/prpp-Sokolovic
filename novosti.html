@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novosti - TVZ</title>
+    <link rel="stylesheet" href="news.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="images/logo.png" alt="Logo">
+        </div>
+        <h1>TVZ - Novosti</h1>
+        <div class="flags">
+            <a href="#" id="hr-flag"><img src="images/CRO.png" alt="Croatian Flag"></a>
+            <a href="#" id="eng-flag"><img src="images/UK.png" alt="English Flag"></a>
+        </div>
+        <nav>
+            <ul class="nav-center">
+                <li class="dropdown">
+                    <a href="index.html">Studijski programi</a>
+                    <div class="dropdown-content">
+                        <a href="akademski.html">Akademski programi</a>
+                        <a href="studijski.html">Studijski programi</a>
+                    </div>
+                </li>
+                <li class="active"><a href="#">Novosti</a></li>
+                <li><a href="dogadaji.html">Događaji</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="card">
+            <img src="images/card1.jpg" alt="Vijest 1">
+            <h2>Početak prijava</h2>
+            <p>Požuri i zauzmi svoje mjesto te se pridruži studiranju s ostalim Erasmus studentima na Veleučilištu.</p>
+        </section>
+    
+        <section class="card">
+            <img src="images/card2.jpg" alt="Vijest 2">
+            <h2>Nezaboravne priče sa Erasmusa</h2>
+            <p>U nastavku članka pročitajte kako su se naši profesori proveli na Erasmusu u Grčkoj.</p>
+        </section>
+    
+        <section class="card">
+            <img src="images/inro_mac_lab.png" alt="Vijest 3">
+            <h2>Pametno investiramo</h2>
+            <p>Godinama investiramo u naše učionice kako bi učenje i boravak bili na najboljoj razini.</p>
+        </section>
+    </main>
+    
+
+    <footer>
+        <p>&copy; 2024 TVZ</p>
+    </footer>
+
+    <script>
+        const hrFlag = document.getElementById('hr-flag');
+        const engFlag = document.getElementById('eng-flag');
+
+        hrFlag.addEventListener('click', function(event) {
+            event.preventDefault();
+            localStorage.setItem('language', 'hr');
+            updateLanguage();
+        });
+
+        engFlag.addEventListener('click', function(event) {
+            event.preventDefault();
+            localStorage.setItem('language', 'en');
+            updateLanguage();
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            updateLanguage();
+        });
+
+        function updateLanguage() {
+            const language = localStorage.getItem('language');
+            if (language === 'en') {
+                engFlag.href = '#';
+                hrFlag.href = 'news.html';
+                translateToEnglish();
+            } else {
+                hrFlag.href = '#';
+                engFlag.href = 'index.html';
+                translateToCroatian();
+            }
+            updateActiveState();
+        }
+
+        function translateToEnglish() {
+            document.querySelector('h1').textContent = 'TVZ - News';
+            document.querySelector('.nav-center li:nth-child(1) a').textContent = 'Study Programs';
+            document.querySelector('.nav-center li:nth-child(2) a').textContent = 'News';
+            document.querySelector('.nav-center li:nth-child(3) a').textContent = 'Events';
+            const cards = document.querySelectorAll('.card');
+            cards[0].querySelector('h2').textContent = 'Open call for new competition round';
+            cards[0].querySelector('p').textContent = 'A new round of applications for the Erasmus+ exchange for professors is now open. Find all the necessary information under the documents section.';
+            cards[1].querySelector('h2').textContent = 'Unforgettable stories from Erasmus';
+            cards[1].querySelector('p').textContent = 'Read on to find out how our professors enjoyed their time on Erasmus in Greece.';
+            cards[2].querySelector('h2').textContent = 'New partner institutions';
+            cards[2].querySelector('p').textContent = 'We have expanded the selection of Erasmus institutions available for interested faculty members.';
+        }
+
+        function translateToCroatian() {
+            document.querySelector('h1').textContent = 'TVZ - Novosti';
+            document.querySelector('.nav-center li:nth-child(1) a').textContent = 'Studijski programi';
+            document.querySelector('.nav-center li:nth-child(2) a').textContent = 'Novosti';
+            document.querySelector('.nav-center li:nth-child(3) a').textContent = 'Događaji';
+            const cards = document.querySelectorAll('.card');
+            cards[0].querySelector('h2').textContent = 'Otvoren novi krug natječaja';
+            cards[0].querySelector('p').textContent = 'Za sve zainteresirane djelatnike otvoren je novi krug prijava za Erasmus+ razmjenu profesora. Sve potrebne informacije pronađite pod dokumentima.';
+            cards[1].querySelector('h2').textContent = 'Nezaboravne priče sa Erasmusa';
+            cards[1].querySelector('p').textContent = 'U nastavku članka pročitajte kako su se naši profesori proveli na Erasmusu u Grčkoj.';
+            cards[2].querySelector('h2').textContent = 'Nove partnerske institucije';
+            cards[2].querySelector('p').textContent = 'Za sve zainteresirane djelatnike proširili smo mogućnosti odabira Erasmus institucija.';
+        }
+
+        function updateActiveState() {
+            const language = localStorage.getItem('language');
+            if (language === 'en') {
+                document.querySelector('.nav-center li.active').classList.remove('active');
+                document.querySelectorAll('.nav-center li')[1].classList.add('active');
+            } else {
+                document.querySelector('.nav-center li.active').classList.remove('active');
+                document.querySelectorAll('.nav-center li')[1].classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>

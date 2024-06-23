@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akademski programi - TVZ</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="akademski.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="images/logo.png" alt="Logo">
+        </div>
+        <h1>TVZ - Akademski programi</h1>
+        <div class="flags">
+            <a href="#" id="hr-flag"><img src="images/CRO.png" alt="Croatian Flag"></a>
+            <a href="#" id="eng-flag"><img src="images/UK.png" alt="English Flag"></a>
+        </div>
+        <nav>
+            <ul class="nav-center">
+                <li class="dropdown">
+                    <a href="index.html">Studijski programi</a>
+                    <div class="dropdown-content">
+                        <a href="akademski.html">Akademski programi</a>
+                        <a href="studijski.html">Studijski programi</a>
+                    </div>
+                </li>
+                <li><a href="novosti.html">Novosti</a></li>
+                <li><a href="dogadaji.html">Događaji</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <p>Klikom na gumb ispod preuzmite sve potrebene dokumenete 
+            kako bi započeli vašu prijavu za Erasmus+ razmjenu profesora!</p>
+        <a href="dokument.pdf" class="btn">Preuzmi dokumente</a>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 TVZ</p>
+    </footer>
+
+    <script>
+        const hrFlag = document.getElementById('hr-flag');
+        const engFlag = document.getElementById('eng-flag');
+
+        hrFlag.addEventListener('click', function(event) {
+            event.preventDefault();
+            localStorage.setItem('language', 'hr');
+            updateLanguage();
+        });
+
+        engFlag.addEventListener('click', function(event) {
+            event.preventDefault();
+            localStorage.setItem('language', 'en');
+            updateLanguage();
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            updateLanguage();
+        });
+
+        function updateLanguage() {
+            const language = localStorage.getItem('language');
+            if (language === 'en') {
+                engFlag.href = '#';
+                hrFlag.href = 'akademski.html';
+                translateToEnglish();
+            } else {
+                hrFlag.href = '#';
+                engFlag.href = 'academic.html';
+                translateToCroatian();
+            }
+            updateActiveState();
+        }
+
+        function translateToEnglish() {
+            document.querySelector('h1').textContent = 'TVZ - Academic Programs';
+            document.querySelector('.nav-center li:nth-child(1) a').textContent = 'Study Programs';
+            document.querySelector('.dropdown-content a:nth-child(1)').textContent = 'Academic Programs';
+            document.querySelector('.dropdown-content a:nth-child(2)').textContent = 'Study Programs';
+            document.querySelector('.nav-center li:nth-child(2) a').textContent = 'News';
+            document.querySelector('.nav-center li:nth-child(3) a').textContent = 'Events';
+            document.querySelector('main p').textContent = 'Click the button below to download the list of all compulsory subjects for this semester!';
+            document.querySelector('.btn').textContent = 'Download';
+        }
+
+        function translateToCroatian() {
+            document.querySelector('h1').textContent = 'TVZ - Akademski programi';
+            document.querySelector('.nav-center li:nth-child(1) a').textContent = 'Studijski programi';
+            document.querySelector('.dropdown-content a:nth-child(1)').textContent = 'Akademski programi';
+            document.querySelector('.dropdown-content a:nth-child(2)').textContent = 'Studijski programi';
+            document.querySelector('.nav-center li:nth-child(2) a').textContent = 'Novosti';
+            document.querySelector('.nav-center li:nth-child(3) a').textContent = 'Događaji';
+            document.querySelector('main p').textContent = 'Klikom na gumb ispod preuzmite sve PDF dokument sa popisom svih obaveznih predmeta za ovaj semestar!';
+            document.querySelector('.btn').textContent = 'Preuzmi';
+        }
+
+        function updateActiveState() {
+            const activeItem = document.querySelector('.nav-center li.active');
+            if (activeItem) {
+                activeItem.classList.remove('active');
+            }
+            document.querySelectorAll('.nav-center li')[0].classList.add('active');
+        }
+    </script>
+</body>
+</html>

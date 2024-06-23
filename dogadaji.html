@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Događaji - TVZ</title>
+    <link rel="stylesheet" href="events.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="images/logo.png" alt="Logo">
+        </div>
+        <h1>TVZ - Događaji</h1>
+        <div class="flags">
+            <a href="#" id="hr-flag"><img src="images/CRO.png" alt="Croatian Flag"></a>
+            <a href="#" id="eng-flag"><img src="images/UK.png" alt="English Flag"></a>
+        </div>
+        <nav>
+            <ul class="nav-center">
+                <li class="dropdown">
+                    <a href="index.html">Studijski programi</a>
+                    <div class="dropdown-content">
+                        <a href="akademski.html">Akademski programi</a>
+                        <a href="studijski.html">Studijski programi</a>
+                    </div>
+                </li>
+                <li><a href="novosti.html">Novosti</a></li>
+                <li class="active"><a href="#">Događaji</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <h2>Zadnji događaji</h2>
+
+        <section class="card">
+            <h3>Zaposlenik i studenti TVZ-a sudjelovali na ovogodišnjem izdanju WRC Croatia rally 2023</h3>
+        </section>
+
+        <section class="card">
+            <h3>Izložba Vilko Žiljak - 50 godina kompjutorske grafike</h3>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 TVZ</p>
+    </footer>
+
+    <script>
+        const hrFlag = document.getElementById('hr-flag');
+        const engFlag = document.getElementById('eng-flag');
+
+        hrFlag.addEventListener('click', function(event) {
+            event.preventDefault();
+            localStorage.setItem('language', 'hr');
+            updateLanguage();
+        });
+
+        engFlag.addEventListener('click', function(event) {
+            event.preventDefault();
+            localStorage.setItem('language', 'en');
+            updateLanguage();
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            updateLanguage();
+        });
+
+        function updateLanguage() {
+            const language = localStorage.getItem('language');
+            if (language === 'en') {
+                engFlag.href = '#';
+                hrFlag.href = 'dogadaji.html';
+                translateToEnglish();
+            } else {
+                hrFlag.href = '#';
+                engFlag.href = 'events.html';
+                translateToCroatian();
+            }
+            updateActiveState();
+        }
+
+        function translateToEnglish() {
+            document.querySelector('h1').textContent = 'TVZ - Events';
+            document.querySelector('.nav-center li:nth-child(1) a').textContent = 'Study Programs';
+            document.querySelector('.nav-center li:nth-child(2) a').textContent = 'News';
+            document.querySelector('.nav-center li:nth-child(3) a').textContent = 'Events';
+            const cards = document.querySelectorAll('.card');
+            cards[0].querySelector('h3').textContent = 'TVZ employees and students participated in this year\'s WRC Croatia rally 2023';
+            cards[1].querySelector('h3').textContent = 'Exhibition Vilko Žiljak - 50 years of computer graphics';
+        }
+
+        function translateToCroatian() {
+            document.querySelector('h1').textContent = 'TVZ - Događaji';
+            document.querySelector('.nav-center li:nth-child(3) a').textContent = 'Studijski programi';
+            document.querySelector('.nav-center li:nth-child(2) a').textContent = 'Novosti';
+            document.querySelector('.nav-center li:nth-child(3) a').textContent = 'Događaji';
+            const cards = document.querySelectorAll('.card');
+            cards[0].querySelector('h3').textContent = 'Zaposlenik i studenti TVZ-a sudjelovali na ovogodišnjem izdanju WRC Croatia rally 2023';
+            cards[1].querySelector('h3').textContent = 'Izložba Vilko Žiljak - 50 godina kompjutorske grafike';
+        }
+
+        function updateActiveState() {
+            const language = localStorage.getItem('language');
+            if (language === 'en') {
+                document.querySelector('.nav-center li.active').classList.remove('active');
+                document.querySelectorAll('.nav-center li')[2].classList.add('active');
+            } else {
+                document.querySelector('.nav-center li.active').classList.remove('active');
+                document.querySelectorAll('.nav-center li')[2].classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>
